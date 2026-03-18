@@ -1,4 +1,4 @@
-# supabase-bkp-bot
+# supabase-bkp-bot :rocket:
 
 Ferramenta em Go para realizar backups automáticos de um banco PostgreSQL no Supabase e enviá-los para o OneDrive via Microsoft Graph API.
 
@@ -20,22 +20,38 @@ Ferramenta em Go para realizar backups automáticos de um banco PostgreSQL no Su
 
 Crie um arquivo `.env` na raiz do projeto:
 
-env
-
-Copy
-
 ```env
-# Supabase / PostgreSQLSUPABASE_DB_HOST=aws-1-sa-east-1.pooler.supabase.comSUPABASE_DB_PORT=5432SUPABASE_DB_NAME=postgresSUPABASE_DB_USER=postgres.PROJECT_REFSUPABASE_DB_PASSWORD=sua_senha_aqui# Azure / Microsoft GraphMS_CLIENT_ID=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxxMS_CLIENT_SECRET=seu_client_secretMS_TENANT_ID=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx# OneDriveONEDRIVE_USER=usuario@empresa.comONEDRIVE_FOLDER=/backups/supabase
+# Supabase / PostgreSQL
+SUPABASE_DB_HOST=aws-1-sa-east-1.pooler.supabase.com
+SUPABASE_DB_PORT=5432
+SUPABASE_DB_NAME=postgres
+SUPABASE_DB_USER=postgres.PROJECT_REF
+SUPABASE_DB_PASSWORD=sua_senha_aqui
+# Azure / Microsoft GraphMS_CLIENT_ID=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+MS_CLIENT_SECRET=seu_client_secret
+MS_TENANT_ID=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+# OneDrive
+ONEDRIVE_USER=usuario@empresa.com
+ONEDRIVE_FOLDER=/backups/supabase
 ```
 
 ## Instalação e uso
 
-bash
-
-Copy
 
 ```bash
-# Clonar e instalar dependênciasgit clone https://github.com/champiao/supabase-bkp-botcd supabase-bkp-botgo work initgo work use .go mod tidy# Criar pasta de backups temporáriosmkdir -p bkps# Executargo run ./cmd/main.go# Ou compilar e executargo build -o bkp-bot ./cmd/main.go./bkp-bot
+# Clonar e instalar dependências
+git clone https://github.com/champiao/supabase-bkp-bot
+cd supabase-bkp-bot
+go work init
+go work use .
+go mod tidy
+# Criar pasta de backups temporários
+mkdir -p bkps
+# Executar
+go run ./cmd/main.go
+# Ou compilar e executar
+go build -o bkp-bot ./cmd/main.go
+./bkp-bot
 ```
 
 ## Configurando o app no Azure
@@ -49,20 +65,18 @@ Copy
 
 Para executar o backup diariamente às 2h:
 
-cron
-
-Copy
-
 ```cron
 0 2 * * * /caminho/para/bkp-bot >> /var/log/supabase-bkp.log 2>&1
 ```
 
 ## Estrutura do projeto
 
-text
-
-Copy
-
 ```
-.├── cmd/│   └── main.go              # Entrada principal: pg_dump + token + upload├── utils/│   └── upload_ondrive.go    # Upload para OneDrive (simples e chunked)├── bkps/                    # Dumps temporários (ignorado pelo git)├── go.mod└── .env                     # Variáveis de ambiente (ignorado pelo git)
+.├── cmd/│
+   └── main.go              # Entrada principal: pg_dump + token + upload
+   ├── utils/│   
+   └── upload_ondrive.go    # Upload para OneDrive (simples e chunked)
+├── bkps/                    # Dumps temporários (ignorado pelo git)
+├── go.mod
+└── .env                     # Variáveis de ambiente (ignorado pelo git)
 ```
