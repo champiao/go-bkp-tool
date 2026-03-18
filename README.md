@@ -27,7 +27,8 @@ SUPABASE_DB_PORT=5432
 SUPABASE_DB_NAME=postgres
 SUPABASE_DB_USER=postgres.PROJECT_REF
 SUPABASE_DB_PASSWORD=sua_senha_aqui
-# Azure / Microsoft GraphMS_CLIENT_ID=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+# Azure / Microsoft Graph
+MS_CLIENT_ID=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 MS_CLIENT_SECRET=seu_client_secret
 MS_TENANT_ID=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 # OneDrive
